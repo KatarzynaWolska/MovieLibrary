@@ -7,6 +7,7 @@ namespace MovieLibrary.Controllers
 {
 
     [ApiController]
+    [Route("api/categories")]
     public class CategoryController : ControllerBase
     {
         private ICategoryData _categoryData;
@@ -17,7 +18,6 @@ namespace MovieLibrary.Controllers
         }
 
         [HttpGet]
-        [Route("api/[controller]")]
         public IActionResult GetCategories()
         {
             Console.WriteLine("Ble");
@@ -25,7 +25,7 @@ namespace MovieLibrary.Controllers
         }
 
         [HttpGet]
-        [Route("api/[controller]/{id}")]
+        [Route("{id}")]
         public IActionResult GetCategory(Guid id)
         {
             var category = _categoryData.GetCategory(id);
@@ -39,7 +39,6 @@ namespace MovieLibrary.Controllers
         }
 
         [HttpPost]
-        [Route("api/[controller]")]
         public IActionResult AddCategory(Category category)
         {
             var createdCategory = _categoryData.AddCategory(category);
@@ -49,7 +48,7 @@ namespace MovieLibrary.Controllers
         }
 
         [HttpDelete]
-        [Route("api/[controller]/{id}")]
+        [Route("{id}")]
         public IActionResult DeleteCategory(Guid id)
         {
             var category = _categoryData.GetCategory(id);
@@ -64,7 +63,7 @@ namespace MovieLibrary.Controllers
         }
 
         [HttpPut]
-        [Route("api/[controller]/{id}")]
+        [Route("{id}")]
         public IActionResult EditCategory(Guid id, Category category)
         {
             var existingCategory = _categoryData.GetCategory(id);

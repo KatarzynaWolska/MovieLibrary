@@ -14,7 +14,6 @@ namespace MovieLibrary.Models
 
         public void edit(Category category)
         {
-            Id = category.Id;
             Name = category.Name;
         }
     }
