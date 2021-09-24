@@ -34,6 +34,7 @@ namespace MovieLibrary
                 options.UseSqlServer(Configuration.GetConnectionString("MovieLibraryConnectionString")));
 
             services.AddScoped<ICategoryData, SqlCategoryData>();
+            services.AddScoped<IMovieData, SqlMovieData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

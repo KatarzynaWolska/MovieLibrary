@@ -17,7 +17,7 @@ namespace MovieLibrary.Data
 
         public Category AddCategory(Category category)
         {
-            category.Id = Guid.NewGuid();
+            category.CategoryId = Guid.NewGuid();
             _context.Categories.Add(category);
             _context.SaveChanges();
             return category;
@@ -31,7 +31,7 @@ namespace MovieLibrary.Data
 
         public Category EditCategory(Category category)
         {
-            var existingCategory = GetCategory(category.Id);
+            var existingCategory = GetCategory(category.CategoryId);
             
             if(existingCategory != null)
             {

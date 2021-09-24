@@ -20,7 +20,6 @@ namespace MovieLibrary.Controllers
         [HttpGet]
         public IActionResult GetCategories()
         {
-            Console.WriteLine("Ble");
             return Ok(_categoryData.GetCategories());
         }
 
@@ -43,7 +42,7 @@ namespace MovieLibrary.Controllers
         {
             var createdCategory = _categoryData.AddCategory(category);
 
-            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + createdCategory.Id, 
+            return Created(HttpContext.Request.Scheme + "://" + HttpContext.Request.Host + HttpContext.Request.Path + "/" + createdCategory.CategoryId, 
                 createdCategory);
         }
 

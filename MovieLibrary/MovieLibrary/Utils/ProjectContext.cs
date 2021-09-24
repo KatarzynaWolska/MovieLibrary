@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MovieLibrary.Utils
 {
@@ -14,5 +10,14 @@ namespace MovieLibrary.Utils
         }
 
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Movie> Movies { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.Movies)
+                .WithOne(m => m.Category);
+        }
     }
 }
