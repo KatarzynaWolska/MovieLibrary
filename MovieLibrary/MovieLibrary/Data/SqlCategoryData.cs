@@ -23,6 +23,12 @@ namespace MovieLibrary.Data
             return category;
         }
 
+        public void AddMovie(Category category, Movie movie)
+        {
+            category.Movies.Add(movie);
+            _context.SaveChanges();
+        }
+
         public void DeleteCategory(Category category)
         {
             _context.Categories.Remove(category);
@@ -31,7 +37,7 @@ namespace MovieLibrary.Data
 
         public Category EditCategory(Category category)
         {
-            var existingCategory = GetCategory(category.CategoryId);
+            var existingCategory = GetCategoryById(category.CategoryId);
             
             if(existingCategory != null)
             {
@@ -47,9 +53,16 @@ namespace MovieLibrary.Data
             return _context.Categories.ToList();
         }
 
-        public Category GetCategory(Guid id)
+        public Category GetCategoryById(Guid id)
         {
             return _context.Categories.Find(id);
+        }
+
+        public Category GetCategoryByName(string name)
+        {
+            return _context.Categories
+                .Where(c => c.Name == name)
+                .FirstOrDefault();
         }
     }
 }

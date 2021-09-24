@@ -10,12 +10,16 @@ namespace MovieLibrary.Data
     {
         List<Category> GetCategories();
 
-        Category GetCategory(Guid id);
+        Category GetCategoryById(Guid id);
+
+        Category GetCategoryByName(string name);
 
         Category AddCategory(Category category);
 
         void DeleteCategory(Category category);
 
         Category EditCategory(Category category);
+
+        void AddMovie(Category category, Movie movie);
     }
 }

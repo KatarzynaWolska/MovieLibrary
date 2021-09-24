@@ -13,11 +13,23 @@ namespace MovieLibrary.Models
         [MaxLength(50, ErrorMessage = "Name can only be 50 characters long")]
         public string Name { get; set; }
 
-        public List<Movie> Movies { get; set; }
+        public List<Movie> Movies { get; set; } = new List<Movie>();
 
-        public void edit(Category category)
+        public Category()
         {
-            Name = category.Name;
+          
+        }
+
+        public Category(string name)
+        {
+            this.CategoryId = Guid.NewGuid();
+            this.Name = name;
+            this.Movies = new List<Movie>();
+        }
+
+        public void edit(string name)
+        {
+            this.Name = name;
         }
     }
 }

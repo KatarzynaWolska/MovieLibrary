@@ -16,10 +16,22 @@ namespace MovieLibrary.Models
         [Required]
         public Category Category { get; set; }
 
-        public void edit(Movie movie)
+        public Movie()
         {
-            Title = movie.Title;
-            Category = movie.Category;
+
+        }
+
+        public Movie(string title, Category category)
+        {
+            this.MovieId = Guid.NewGuid();
+            this.Title = title;
+            this.Category = category;
+        }
+
+        public void edit(string title, Category category)
+        {
+            this.Title = title;
+            this.Category = category;
         }
     }
 }
