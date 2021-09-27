@@ -1,4 +1,5 @@
-﻿using MovieLibrary.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieLibrary.Models;
 using MovieLibrary.Utils;
 using System;
 using System.Collections.Generic;
@@ -44,12 +45,12 @@ namespace MovieLibrary.Data
 
         public Movie GetMovie(Guid id)
         {
-            return _context.Movies.Find(id);
+            return _context.Movies.Include(m => m.Category).FirstOrDefault(m => m.MovieId== id);
         }
 
         public List<Movie> GetMovies()
         {
-            return _context.Movies.ToList();
+            return _context.Movies.Include(m => m.Category).ToList();
         }
     }
 }
