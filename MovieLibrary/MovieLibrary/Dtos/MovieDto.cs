@@ -11,21 +11,25 @@ namespace MovieLibrary.Dtos
 
         public string Category { get; set; }
 
+        public string Director { get; set; }
+
         public MovieDto()
         {
            
         }
 
-        private MovieDto(Guid id, string title, string category)
+        private MovieDto(Guid id, string title, string category, string director)
         {
             this.MovieId = id;
             this.Title = title;
             this.Category = category;
+            this.Director = director;
         }
 
         public static MovieDto FromMovie(Movie movie)
         {
-            return new MovieDto(id: movie.MovieId, title: movie.Title, category: movie.Category?.Name);
+            return new MovieDto(id: movie.MovieId, title: movie.Title, category: movie.Category?.Name, 
+                director: movie.Director.Name + " " + movie.Director.Surname);
         }
     }
 }

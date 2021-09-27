@@ -51,12 +51,18 @@ namespace MovieLibrary.Data
 
         public List<Category> GetCategories()
         {
-            return _context.Categories.Include(c => c.Movies).ToList();
+            return _context.Categories
+                .Include(c => c.Movies)
+                .ThenInclude(m => m.Director)
+                .ToList();
         }
 
         public Category GetCategoryById(Guid id)
         {
-            return _context.Categories.Include(c => c.Movies).FirstOrDefault(c => c.CategoryId == id);
+            return _context.Categories
+                .Include(c => c.Movies)
+                .ThenInclude(m => m.Director)
+                .FirstOrDefault(c => c.CategoryId == id);
         }
 
         public Category GetCategoryByName(string name)

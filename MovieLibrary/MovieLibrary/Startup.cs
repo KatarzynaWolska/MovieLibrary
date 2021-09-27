@@ -1,18 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using MovieLibrary.Data;
 using MovieLibrary.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace MovieLibrary
 {
@@ -36,6 +30,7 @@ namespace MovieLibrary
 
             services.AddScoped<ICategoryData, SqlCategoryData>();
             services.AddScoped<IMovieData, SqlMovieData>();
+            services.AddScoped<IDirectorData, SqlDirectorData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

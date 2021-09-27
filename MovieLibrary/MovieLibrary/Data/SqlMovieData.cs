@@ -45,12 +45,18 @@ namespace MovieLibrary.Data
 
         public Movie GetMovie(Guid id)
         {
-            return _context.Movies.Include(m => m.Category).FirstOrDefault(m => m.MovieId== id);
+            return _context.Movies
+                .Include(m => m.Category)
+                .Include(m => m.Director)
+                .FirstOrDefault(m => m.MovieId == id);
         }
 
         public List<Movie> GetMovies()
         {
-            return _context.Movies.Include(m => m.Category).ToList();
+            return _context.Movies
+                .Include(m => m.Category)
+                .Include(m => m.Director)
+                .ToList();
         }
     }
 }

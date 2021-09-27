@@ -3,9 +3,7 @@ using MovieLibrary.Data;
 using MovieLibrary.Dtos;
 using MovieLibrary.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MovieLibrary.Controllers
 {
@@ -15,11 +13,13 @@ namespace MovieLibrary.Controllers
     {
         private IMovieData _movieData;
         private ICategoryData _categoryData;
+        private IDirectorData _directorData;
 
-        public MovieController(IMovieData movieData, ICategoryData categoryData)
+        public MovieController(IMovieData movieData, ICategoryData categoryData, IDirectorData directorData)
         {
             _movieData = movieData;
             _categoryData = categoryData;
+            _directorData = directorData;
         }
 
         [HttpGet]
@@ -34,9 +34,6 @@ namespace MovieLibrary.Controllers
         {
             var movie = _movieData.GetMovie(id);
 
-            System.Diagnostics.Debug.WriteLine("Ble");
-            System.Diagnostics.Debug.WriteLine(movie.Category.Name);
-
             if (movie != null)
             {
                 return Ok(MovieDto.FromMovie(movie));
@@ -49,7 +46,8 @@ namespace MovieLibrary.Controllers
         public IActionResult AddMovie(MovieDto movie)
         { 
             var category = _categoryData.GetCategoryByName(movie.Category);
-            var newMovie = new Movie(title: movie.Title, category: category);
+            var director = _directorData.GetDirectorByNameAndSurname(movie.Director.Split(' ')[0], movie.Director.Split(' ')[1]);
+            var newMovie = new Movie(title: movie.Title, category: category, director: director);
             var createdMovie = _movieData.AddMovie(newMovie);
             _categoryData.AddMovie(category, newMovie);
 
@@ -80,8 +78,9 @@ namespace MovieLibrary.Controllers
 
             if (existingMovie != null)
             {
+                var director = _directorData.GetDirectorByNameAndSurname(movie.Director.Split(' ')[0], movie.Director.Split(' ')[1]);
                 var category = _categoryData.GetCategoryByName(movie.Category);
-                existingMovie.edit(movie.Title, category);
+                existingMovie.edit(movie.Title, category, director);
                 _movieData.EditMovie(existingMovie);
                 return Ok(existingMovie);
             }

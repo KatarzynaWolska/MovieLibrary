@@ -21,7 +21,7 @@ namespace MovieLibrary.Controllers
         [HttpGet]
         public IActionResult GetCategories()
         {
-            return Ok(_categoryData.GetCategories().ConvertAll(c => CategoryDto.FromCategory(c))); // toArray ?
+            return Ok(_categoryData.GetCategories().ConvertAll(c => CategoryDto.FromCategory(c)));
         }
 
         [HttpGet]

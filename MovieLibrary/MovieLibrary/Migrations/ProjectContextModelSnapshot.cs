@@ -35,6 +35,27 @@ namespace MovieLibrary.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("MovieLibrary.Models.Director", b =>
+                {
+                    b.Property<Guid>("DirectorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("DirectorId");
+
+                    b.ToTable("Directors");
+                });
+
             modelBuilder.Entity("MovieLibrary.Models.Movie", b =>
                 {
                     b.Property<Guid>("MovieId")
@@ -42,6 +63,9 @@ namespace MovieLibrary.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DirectorId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
@@ -52,6 +76,8 @@ namespace MovieLibrary.Migrations
                     b.HasKey("MovieId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("DirectorId");
 
                     b.ToTable("Movies");
                 });
@@ -64,10 +90,23 @@ namespace MovieLibrary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MovieLibrary.Models.Director", "Director")
+                        .WithMany("Movies")
+                        .HasForeignKey("DirectorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Director");
                 });
 
             modelBuilder.Entity("MovieLibrary.Models.Category", b =>
+                {
+                    b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("MovieLibrary.Models.Director", b =>
                 {
                     b.Navigation("Movies");
                 });

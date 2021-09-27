@@ -13,11 +13,17 @@ namespace MovieLibrary.Utils
 
         public DbSet<Movie> Movies { get; set; }
 
+        public DbSet<Director> Directors{ get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()
                 .HasMany(c => c.Movies)
                 .WithOne(m => m.Category);
+
+            modelBuilder.Entity<Director>()
+                .HasMany(d => d.Movies)
+                .WithOne(m => m.Director);
         }
     }
 }
